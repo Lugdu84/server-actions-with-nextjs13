@@ -1,7 +1,7 @@
 import { addUser } from "@/actions/users"
 
 async function getUsers() {
-  const res = await fetch('https://64d660a22a017531bc12923b.mockapi.io/users')
+  const res = await fetch('https://64d660a22a017531bc12923b.mockapi.io/users', { cache: 'no-cache'} )
   const users = await res.json()
   return users
 }
@@ -14,6 +14,7 @@ type User = {
 
 export default async function ServerPage() {
   const users: User[] = await getUsers()
+  console.log('users', users)
   return (
     <div className="flex flex-col items-center gap-4 mt-3">
       <h2>Server Actions in Server Components</h2>
