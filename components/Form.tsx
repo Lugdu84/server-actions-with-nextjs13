@@ -1,6 +1,6 @@
 'use client'
 
-import { addProductToDatabase } from "@/actions/serverActions"
+import { addProductToDatabase } from "@/actions/products"
 import { FormEvent, useState } from "react"
 
 export default function Form() {

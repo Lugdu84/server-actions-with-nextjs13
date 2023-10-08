@@ -1,6 +1,6 @@
 'use client'
 
-import { addProductToDatabase } from "@/actions/serverActions"
+import { addProductToDatabase } from "@/actions/products"
 import { useTransition } from "react"
 
 export default function AddProductButton() {
