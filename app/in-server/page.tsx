@@ -1,51 +1,39 @@
-import { addUser } from "@/actions/users"
+import { addUser } from "@/actions/todos"
 
 async function getUsers() {
-  const res = await fetch('https://64d660a22a017531bc12923b.mockapi.io/users', { cache: 'no-cache'} )
-  const users = await res.json()
-  return users
+  const res = await fetch('https://64d660a22a017531bc12923b.mockapi.io/todos', { cache: 'no-cache'} )
+  const todos = await res.json()
+  return todos
 }
 
-type User = {
+type Todo = {
   id: string
-  firstName: string
-  lastName: string
+  name: string
+  checked: boolean
 }
 
 export default async function ServerPage() {
-  const users: User[] = await getUsers()
-  console.log('users', users)
+  const todos: Todo[] = await getUsers()
   return (
     <div className="flex flex-col items-center gap-4 mt-3">
       <h2>Server Actions in Server Components</h2>
       <form className=" w-3/4 md:w-1/2 flex flex-col gap-4" action={addUser}>
-        <div className="flex gap-3 items-center">
-          <label className="w-1/5" htmlFor="firstName">Prénom : </label>
-          <input
-            required
-            className=" border border-gray-400 rounded-md p-1"
-            id="firstName"
-            type="text"
-            name="firstName"
-            placeholder="Prénom"
-          />
-        </div>
         <div className="flex items-center gap-3">
           <label className="w-1/5" htmlFor="lastName">Nom : </label>
           <input
             required
             className=" border border-gray-400 rounded-md p-1"
-            id="lastName"
+            id="name"
             type="text"
-            name="lastName"
-            placeholder="Nom"
+            name="name"
+            placeholder="Nom de la tâche"
           />
         </div>
         <button className="bg-green-400 rounded-md py-2" type="submit">Ajouter</button>
       </form>
-      {users.map((user) => (
-        <div key={user.id} className="p-5 shadow-xl rounded-md w-11/12">
-          <h2 className="text-xl font-bold">{user.firstName} {user.lastName}</h2>
+      {todos.map((todo) => (
+        <div key={todo.id} className="p-5 shadow-xl rounded-md w-11/12">
+          <h3 className="text-xl font-bold">{todo.name}</h3>
         </div>
       ))}
     </div>
