@@ -22,6 +22,7 @@ export default async function ServerPage() {
         <div className="flex gap-3 items-center">
           <label className="w-1/5" htmlFor="firstName">Prénom : </label>
           <input
+            required
             className=" border border-gray-400 rounded-md p-1"
             id="firstName"
             type="text"
@@ -32,6 +33,7 @@ export default async function ServerPage() {
         <div className="flex items-center gap-3">
           <label className="w-1/5" htmlFor="lastName">Nom : </label>
           <input
+            required
             className=" border border-gray-400 rounded-md p-1"
             id="lastName"
             type="text"
