@@ -1,6 +1,7 @@
 import { addProductToDatabase } from "@/actions/serverActions";
 import AddProductButton from "@/components/AddProductButton";
 import { Product } from "@/typings";
+import Form from "./Form";
 
 
 export default async function Home() {
@@ -16,25 +17,25 @@ export default async function Home() {
 
   const products: Product[] = await res.json()
 
-  
+  type tags = 'javascript' | 'html' | 'java' | 'ruby'
 
+  
   
   return (
     <main className="">
       <h1 className="text-3xl font-bold text-center">Products warehouse</h1>
-      <AddProductButton />
-      <form action={addProductToDatabase} className="flex flex-col gap-5 max-w-xl mx-auto p-5">
-        <input name="name" placeholder="Enter product name..." className="border border-gray-300 p-2 rounded-md" />
-        <input name="price" placeholder="Enter price" className="border border-gray-300 p-2 rounded-md" />
-        {/* <input type="image" formAction={sumbitImage} /> */}
-        <button className="border bg-blue-500 text-white p-2 rounded-md">Add Product</button>
-      </form>
-      
-      <div className="flex flex-wrap gap-5">
+      {/* <AddProductButton /> */}
+      <Form />
+      <div className="flex flex-wrap gap-5 m-2">
         {products.map((product) => (
-          <div key={product.id} className="p-5 shadow rounded-md">
-            <h2 className="text-xl font-bold">{product.name}</h2>
-            <p className="text-lg font-bold">{product.price}</p>
+          <div key={product.id} className="p-5 shadow-xl rounded-md w-full">
+            <h2 className="text-xl font-bold">{product.title}</h2>
+            <p className="text-lg font-bold">{product.description}</p>
+            <div>
+              {product.tags.map((tag) => (
+                <span key={tag} className="bg-gray-200 text-gray-800 text-sm rounded-md px-2 py-1 m-1">{tag}</span>
+              ))}
+            </div>
           </div>
             ))}
       </div>
