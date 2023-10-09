@@ -1,7 +1,7 @@
-import { addUser } from "@/actions/todos"
+import { addTodo } from "@/actions/todos"
 
-async function getUsers() {
-  const res = await fetch('https://64d660a22a017531bc12923b.mockapi.io/todos', { cache: 'no-cache'} )
+async function getTodos() {
+  const res = await fetch('https://64d660a22a017531bc12923b.mockapi.io/todos', {cache: "no-cache"} )
   const todos = await res.json()
   return todos
 }
@@ -13,16 +13,16 @@ type Todo = {
 }
 
 export default async function ServerPage() {
-  const todos: Todo[] = await getUsers()
+  const todos: Todo[] = await getTodos()
   return (
     <div className="flex flex-col items-center gap-4 mt-3">
       <h2>Server Actions in Server Components</h2>
-      <form className=" w-3/4 md:w-1/2 flex flex-col gap-4" action={addUser}>
+      <form className=" w-3/4 md:w-1/2 flex flex-col gap-4" action={addTodo}>
         <div className="flex items-center gap-3">
           <label className="w-1/5" htmlFor="lastName">Nom : </label>
           <input
             required
-            className=" border border-gray-400 rounded-md p-1"
+            className=" w-4/5 border border-gray-400 rounded-md p-1"
             id="name"
             type="text"
             name="name"
@@ -32,8 +32,13 @@ export default async function ServerPage() {
         <button className="bg-green-400 rounded-md py-2" type="submit">Ajouter</button>
       </form>
       {todos.map((todo) => (
-        <div key={todo.id} className="p-5 shadow-xl rounded-md w-11/12">
-          <h3 className="text-xl font-bold">{todo.name}</h3>
+        <div key={todo.id} className="p-5 shadow-xl rounded-md w-3/4 md:w-1/2 flex justify-between items-center">
+          <div className="flex gap-2">
+            <h3 className="text-xl font-bold">{todo.name}</h3>
+            <input className="mr-3" type="checkbox" checked={todo.checked} />
+          </div>
+          
+          <button className=" bg-red-400 py-2 px-3 rounded-md" type="button">Supprimer</button>
         </div>
       ))}
     </div>
