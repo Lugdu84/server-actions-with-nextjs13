@@ -1,4 +1,6 @@
 import { addTodo } from "@/actions/todos"
+import Input from "@/components/Input"
+import { Todo } from "@/typings"
 
 async function getTodos() {
   const res = await fetch('https://64d660a22a017531bc12923b.mockapi.io/todos', {cache: "no-cache"} )
@@ -6,14 +8,9 @@ async function getTodos() {
   return todos
 }
 
-type Todo = {
-  id: string
-  name: string
-  checked: boolean
-}
-
 export default async function ServerPage() {
   const todos: Todo[] = await getTodos()
+  console.log('todos', todos)
   return (
     <div className="flex flex-col items-center gap-4 mt-3">
       <h2>Server Actions in Server Components</h2>
@@ -35,7 +32,7 @@ export default async function ServerPage() {
         <div key={todo.id} className="p-5 shadow-xl rounded-md w-3/4 md:w-1/2 flex justify-between items-center">
           <div className="flex gap-2">
             <h3 className="text-xl font-bold">{todo.name}</h3>
-            <input className="mr-3" type="checkbox" checked={todo.checked} />
+            <Input todo={todo} />
           </div>
           
           <button className=" bg-red-400 py-2 px-3 rounded-md" type="button">Supprimer</button>
