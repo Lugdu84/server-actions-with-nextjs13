@@ -43,3 +43,19 @@ export const updateTodo = async (todo: Todo) => {
         return { message: `Erreur lors de la modification de la todo : ${err}`}
     }
 }
+
+export const deleteTodo = async (id: string) => {
+
+    try {
+        const response = await fetch(`https://64d660a22a017531bc12923b.mockapi.io/todos/${id}`, {
+            method: 'DELETE',
+        })
+        revalidatePath('/in-server')
+        
+        const data = await response.json()
+        return { message: `La todo ${data.name} a supprimé avec succès.`}
+    }
+    catch (err) {
+        return { message: `Erreur lors de la suppression de la todo : ${err}`}
+    }
+}   

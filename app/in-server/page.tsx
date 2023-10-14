@@ -1,4 +1,5 @@
 import { addTodo } from "@/actions/todos"
+import DeleteButton from "@/components/DeleteButton"
 import Input from "@/components/Input"
 import { Todo } from "@/typings"
 
@@ -34,8 +35,7 @@ export default async function ServerPage() {
             <h3 className="text-xl font-bold">{todo.name}</h3>
             <Input todo={todo} />
           </div>
-          
-          <button className=" bg-red-400 py-2 px-3 rounded-md" type="button">Supprimer</button>
+          <DeleteButton id={todo.id} />
         </div>
       ))}
     </div>
